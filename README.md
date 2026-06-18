@@ -5,6 +5,11 @@ Users can explore destinations, plan trips, manage budgets, and view weather usi
 
 ---
 
+🌐
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-View%20Website-brightgreen?style=for-the-badge&logo=google-chrome)](https://wander-lust-app.onrender.com/)
+
+---
+
 ## ✨ Key Highlights
 
 - 🧭 Adaptive Navigation (Sidebar + Mobile Bottom Nav)
@@ -67,11 +72,13 @@ Users can explore destinations, plan trips, manage budgets, and view weather usi
 - MySQL
 
 ### 🔹 APIs & Tools
+- Git & GitHub 
 - Leaflet.js (Map)
 - OpenStreetMap (Geocoding)
-- Weather API
-- phpMyAdmin (DB management tool)
+- OpenWeather API
 - Lucide Icons → UI icons
+- Render (Flask app)
+- Railway (Database)
 
 ---
 
@@ -118,6 +125,6 @@ Users can explore destinations, plan trips, manage budgets, and view weather usi
 ## 👨‍💻 Author
 
 **Syed Althaf Ali**  
-Building modern web applications with Flask & clean UI/UX  
+Building modern web applications with Flask & clean UI/UX and deployed using Render & Railway 
  
 🔗 LinkedIn: https://linkedin.com/in/syedalthafali16
