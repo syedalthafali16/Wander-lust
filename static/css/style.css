@@ -1014,6 +1014,12 @@ td {
     padding: var(--space-xs) var(--space-sm);
     border-radius: var(--radius-md);
     flex: 1;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: 500;
 }
 
 .bottom-nav-item i {
@@ -1079,7 +1085,7 @@ td {
     }
 }
 
-/* More Menu Styles - Add to your CSS file */
+/* More Menu Styles */
 .more-btn {
     position: relative;
     cursor: pointer;
@@ -1380,7 +1386,9 @@ td {
     animation: fadeIn 0.5s ease-out;
 }
 
-/* Add these CSS rules to fix mobile card issues */
+/* ========================================
+   MOBILE CARD FIXES
+   ======================================== */
 
 /* Mobile Card Fixes */
 @media (max-width: 768px) {

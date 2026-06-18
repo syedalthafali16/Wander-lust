@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" class="dark-mode">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
-<title>Wanderlust | Premium Planner</title>
-
-<!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-<script src="https://unpkg.com/lucide@latest"></script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Wanderlust | Premium Planner</title>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
-
 <body>
 
 <div class="app-wrapper">
@@ -128,7 +124,7 @@
         
     </main>
     
-    <!-- BOTTOM NAVIGATION (Mobile Only) -->
+    <!-- BOTTOM NAVIGATION (Mobile Only) with Theme Toggle -->
     <nav class="bottom-nav">
         <div class="bottom-nav-items">
             {% if session.get('role') == 'admin' %}
@@ -148,6 +144,11 @@
                     <i data-lucide="log-out"></i>
                     <span>Logout</span>
                 </a>
+                <!-- Dark/Light toggle in bottom nav -->
+                <button id="bottom-theme-toggle" class="bottom-nav-item" style="background:transparent;border:none;cursor:pointer;">
+                    <i data-lucide="moon" id="bottom-theme-icon"></i>
+                    <span id="bottom-theme-label">Dark</span>
+                </button>
                 
             {% elif session.get('user_id') %}
                 <a href="{{ url_for('home') }}" class="bottom-nav-item">
@@ -184,6 +185,11 @@
                         <i data-lucide="log-out"></i>
                         <span>Logout</span>
                     </a>
+                    <!-- Dark/Light toggle in bottom nav -->
+                    <button id="bottom-theme-toggle" class="bottom-nav-item" style="background:transparent;border:none;cursor:pointer;">
+                        <i data-lucide="moon" id="bottom-theme-icon"></i>
+                        <span id="bottom-theme-label">Dark</span>
+                    </button>
                 </div>
                 
             {% else %}
@@ -203,6 +209,11 @@
                     <i data-lucide="message-circle"></i>
                     <span>Report</span>
                 </a>
+                <!-- Dark/Light toggle in bottom nav -->
+                <button id="bottom-theme-toggle" class="bottom-nav-item" style="background:transparent;border:none;cursor:pointer;">
+                    <i data-lucide="moon" id="bottom-theme-icon"></i>
+                    <span id="bottom-theme-label">Dark</span>
+                </button>
             {% endif %}
         </div>
     </nav>

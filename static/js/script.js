@@ -72,47 +72,89 @@ function initMenu() {
 
 /* ==========================
    THEME TOGGLE (Simple text - No icons)
+   Now supports BOTH sidebar and bottom nav toggle
 ========================== */
 function initTheme() {
-  const toggle = document.getElementById("theme-toggle");
   const root = document.documentElement;
-
-  if (!toggle) return;
+  
+  // Sidebar toggle
+  const sidebarToggle = document.getElementById("theme-toggle");
+  // Bottom nav toggle
+  const bottomToggle = document.getElementById("bottom-theme-toggle");
+  
+  // Text elements for both toggles
+  const sidebarText = document.getElementById("theme-text");
+  const bottomLabel = document.getElementById("bottom-theme-label");
+  const bottomIcon = document.getElementById("bottom-theme-icon");
 
   // Check saved theme
   const saved = localStorage.getItem("theme");
   
   if (saved === "dark") {
     root.classList.add("dark-mode");
-    updateThemeText(true);
+    updateAllThemeTexts(true);
   } else {
     root.classList.remove("dark-mode");
-    updateThemeText(false);
+    updateAllThemeTexts(false);
   }
 
-  toggle.removeEventListener('click', toggle.clickHandler);
-  
-  toggle.clickHandler = function() {
+  // ----- Shared toggle function -----
+  function toggleTheme(e) {
+    if (e) e.preventDefault();
+    
     const isDark = root.classList.contains("dark-mode");
     
     if (isDark) {
       root.classList.remove("dark-mode");
       localStorage.setItem("theme", "light");
-      updateThemeText(false);
+      updateAllThemeTexts(false);
     } else {
       root.classList.add("dark-mode");
       localStorage.setItem("theme", "dark");
-      updateThemeText(true);
+      updateAllThemeTexts(true);
     }
-  };
-  
-  toggle.addEventListener('click', toggle.clickHandler);
+    
+    // Re-render Lucide icons if available
+    if (typeof lucide !== 'undefined' && lucide.createIcons) {
+      lucide.createIcons();
+    }
+  }
+
+  // ----- Attach to sidebar toggle -----
+  if (sidebarToggle) {
+    sidebarToggle.removeEventListener('click', sidebarToggle.clickHandler);
+    sidebarToggle.clickHandler = toggleTheme;
+    sidebarToggle.addEventListener('click', sidebarToggle.clickHandler);
+  }
+
+  // ----- Attach to bottom nav toggle -----
+  if (bottomToggle) {
+    bottomToggle.removeEventListener('click', bottomToggle.clickHandler);
+    bottomToggle.clickHandler = toggleTheme;
+    bottomToggle.addEventListener('click', bottomToggle.clickHandler);
+  }
 }
 
-function updateThemeText(isDark) {
-  const themeText = document.getElementById("theme-text");
-  if (themeText) {
-    themeText.textContent = isDark ? "Light Mode" : "Dark Mode";
+/* ==========================
+   UPDATE ALL THEME TEXTS (Sidebar + Bottom Nav)
+========================== */
+function updateAllThemeTexts(isDark) {
+  // Sidebar text
+  const sidebarText = document.getElementById("theme-text");
+  if (sidebarText) {
+    sidebarText.textContent = isDark ? "Light Mode" : "Dark Mode";
+  }
+  
+  // Bottom nav label
+  const bottomLabel = document.getElementById("bottom-theme-label");
+  if (bottomLabel) {
+    bottomLabel.textContent = isDark ? "Light" : "Dark";
+  }
+  
+  // Bottom nav icon (Lucide)
+  const bottomIcon = document.getElementById("bottom-theme-icon");
+  if (bottomIcon) {
+    bottomIcon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
   }
 }
 
