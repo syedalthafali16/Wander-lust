@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="container narrow">
+
+  <div class="card">
+
+    <h2 class="page-title">Edit Trip ✏️</h2>
+
+    <form method="POST">
+
+      <!-- MAIN INFO -->
+      <div class="form-group">
+        <label>Destination</label>
+        <input type="text" name="destination" value="{{ trip[1] }}" required>
+      </div>
+
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" name="date" value="{{ trip[2] }}" required>
+      </div>
+
+      <div class="form-group">
+        <label>Budget</label>
+        <input type="number" name="budget" value="{{ trip[3] }}" required>
+      </div>
+
+      <hr class="divider">
+
+      <h3 class="section-subtitle">Budget Calculator 💰</h3>
+
+      <!-- CALCULATOR -->
+      <div class="form-group">
+        <input type="number" id="hotel" placeholder="Hotel cost" oninput="calculateBudget()">
+      </div>
+
+      <div class="form-group">
+        <input type="number" id="flight" placeholder="Flight cost" oninput="calculateBudget()">
+      </div>
+
+      <div class="form-group">
+        <input type="number" id="food" placeholder="Food cost" oninput="calculateBudget()">
+      </div>
+
+      <div class="form-group">
+        <input type="number" id="transport" placeholder="Transport cost" oninput="calculateBudget()">
+      </div>
+
+      <button type="submit" class="btn-primary full-width">
+        Update Trip
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+<script>
+function calculateBudget() {
+
+  let hotel = Number(document.getElementById("hotel").value) || 0;
+  let flight = Number(document.getElementById("flight").value) || 0;
+  let food = Number(document.getElementById("food").value) || 0;
+  let transport = Number(document.getElementById("transport").value) || 0;
+
+  let total = hotel + flight + food + transport;
+
+  document.querySelector("input[name='budget']").value = total;
+}
+</script>
+
+{% endblock %}

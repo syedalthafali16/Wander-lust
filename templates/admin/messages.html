@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="container">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <h2>Contact Messages</h2>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrapper">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Message</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for msg in messages %}
+        <tr>
+          <td>{{ msg.id }}</td>
+          <td>{{ msg.name }}</td>
+          <td>{{ msg.email }}</td>
+          <td class="message-cell">{{ msg.message }}</td>
+          <td>{{ msg.created_at }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="container narrow">
+
+  <div class="card">
+
+    <!-- HEADER -->
+    <div class="section-header">
+      <h2>Plan New Expedition 🧳</h2>
+      <p>Fill in the details for your next adventure.</p>
+    </div>
+
+    <form method="POST">
+
+      <!-- DESTINATION -->
+      <div class="form-group">
+        <label><i data-lucide="map"></i> Destination</label>
+        <input type="text" name="destination" placeholder="e.g. Kyoto, Japan" required>
+      </div>
+
+      <!-- DATE + BUDGET -->
+      <div class="form-row">
+
+        <div class="form-group">
+          <label><i data-lucide="calendar"></i> Date</label>
+          <input type="date" name="date" required>
+        </div>
+
+        <div class="form-group">
+          <label><i data-lucide="indian-rupee"></i> Total Budget</label>
+          <input type="number" name="budget" id="totalBudget" placeholder="Auto calculated" readonly>
+        </div>
+
+      </div>
+
+      <hr class="divider">
+
+      <h3 class="section-subtitle">Budget Calculator 💰</h3>
+
+      <!-- COST INPUTS -->
+      <div class="form-group">
+        <label>Hotel Cost</label>
+        <input type="number" id="hotel" placeholder="Hotel cost">
+      </div>
+
+      <div class="form-group">
+        <label>Flight Cost</label>
+        <input type="number" id="flight" placeholder="Flight cost">
+      </div>
+
+      <div class="form-group">
+        <label>Food Cost</label>
+        <input type="number" id="food" placeholder="Food cost">
+      </div>
+
+      <div class="form-group">
+        <label>Transport Cost</label>
+        <input type="number" id="transport" placeholder="Transport cost">
+      </div>
+
+      <!-- BUTTON -->
+      <button type="submit" class="btn-primary full-width">
+        <i data-lucide="save"></i>
+        Save Travel Plan
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+{% endblock %}

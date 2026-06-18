@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="container">
+
+  <div class="card contact-layout">
+
+    <!-- INFO -->
+    <div class="contact-info">
+      <h2 class="page-title">Get in Touch</h2>
+
+      <p class="page-subtitle">
+        Facing an issue? Let us know—our team is here to help you 24/7.
+      </p>
+
+      <div class="contact-item">
+        <i data-lucide="mail"></i>
+        <div>
+          <strong>Email us</strong>
+          <p>hello@wanderlust.com</p>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <i data-lucide="phone"></i>
+        <div>
+          <strong>Call us</strong>
+          <p>+1 (555) 000-WANDER</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <form class="contact-form" method="POST">
+
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" name="name" placeholder="John Doe" required>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="john@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Message</label>
+        <textarea name="message" placeholder="How can we help you?" required></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary">
+        Send Message
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+{% endblock %}

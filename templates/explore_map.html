@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="container">
+
+  <!-- HEADER -->
+  <div class="section-header center">
+    <h2>🌍 Explore Map</h2>
+  </div>
+
+  <div class="map-layout">
+
+  <!-- SEARCH (div1) -->
+  <div class="map-search-box">
+    <div class="map-search">
+      <input type="text" id="location-input" placeholder="Enter city">
+      <button id="search-btn" class="btn-primary">Search</button>
+    </div>
+  </div>
+
+  <!-- MAP (div2) -->
+  <div class="map-box">
+    <div id="map"></div>
+  </div>
+
+  <!-- WEATHER (div3) -->
+  <div id="weather-box" class="weather-card hidden">
+    <div class="weather-header">
+      <h3 id="weather-city"></h3>
+      <span class="weather-icon">🌤️</span>
+    </div>
+    <div class="weather-main">
+      <p id="weather-temp"></p>
+      <p id="weather-desc"></p>
+    </div>
+  </div>
+</div>
+</section>
+
+{% endblock %}

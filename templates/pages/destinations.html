@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="container">
+
+  <!-- HEADER -->
+  <div class="section-header">
+    <h2>Popular Destinations 🌍</h2>
+    <p>Explore some of the most visited cities and travel hotspots.</p>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search destination...">
+  </div>
+
+  <!-- GRID -->
+  <div class="grid destinations-grid">
+
+    {% for d in destinations %}
+
+    <div class="card destination-card">
+
+      <div class="destination-img" 
+           data-img="{{ d.image }}">
+      </div>
+
+      <div class="destination-content">
+
+        <h3>{{ d.city }}, {{ d.country }}</h3>
+
+        <p>{{ d.description }}</p>
+
+        <span class="tag">Popular</span>
+
+      </div>
+
+    </div>
+
+    {% endfor %}
+
+  </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>Wanderlust | Premium Planner</title>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+
+<body>
+
+<div class="app-wrapper">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="{{ url_for('home') }}" class="logo">
+                <span class="logo-icon">
+                    <i data-lucide="palmtree"></i>
+                </span>
+                <span>Wander<span>lust</span></span>
+            </a>
+        </div>
+        
+        <nav class="sidebar-nav">
+            {% if session.get('role') == 'admin' %}
+                <a href="{{ url_for('explore_map') }}" class="nav-item">
+                    <i data-lucide="map"></i>
+                    <span>Map</span>
+                </a>
+                <a href="{{ url_for('admin_destinations') }}" class="nav-item">
+                    <i data-lucide="compass"></i>
+                    <span>Destinations</span>
+                </a>
+                <a href="{{ url_for('admin_messages') }}" class="nav-item">
+                    <i data-lucide="flag"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="{{ url_for('logout') }}" class="nav-item">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout</span>
+                </a>
+                
+            {% elif session.get('user_id') %}
+                <a href="{{ url_for('home') }}" class="nav-item">
+                    <i data-lucide="home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="{{ url_for('destinations') }}" class="nav-item">
+                    <i data-lucide="compass"></i>
+                    <span>Explore</span>
+                </a>
+                <a href="{{ url_for('explore_map') }}" class="nav-item">
+                    <i data-lucide="map"></i>
+                    <span>Map</span>
+                </a>
+                <a href="{{ url_for('planner') }}" class="nav-item">
+                    <i data-lucide="calendar"></i>
+                    <span>Plan</span>
+                </a>
+                <a href="{{ url_for('bookings') }}" class="nav-item">
+                    <i data-lucide="briefcase"></i>
+                    <span>Trips</span>
+                </a>
+                <a href="{{ url_for('contact') }}" class="nav-item">
+                    <i data-lucide="message-circle"></i>
+                    <span>Report</span>
+                </a>
+                <a href="{{ url_for('logout') }}" class="nav-item">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout</span>
+                </a>
+                
+            {% else %}
+                <a href="{{ url_for('home') }}" class="nav-item">
+                    <i data-lucide="home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="{{ url_for('destinations') }}" class="nav-item">
+                    <i data-lucide="compass"></i>
+                    <span>Explore</span>
+                </a>
+                <a href="{{ url_for('contact') }}" class="nav-item">
+                    <i data-lucide="message-circle"></i>
+                    <span>Report</span>
+                </a>
+                <a href="{{ url_for('login') }}" class="nav-item">
+                    <i data-lucide="log-in"></i>
+                    <span>Login</span>
+                </a>
+            {% endif %}
+        </nav>
+        
+        <div class="sidebar-footer">
+            <button id="theme-toggle" class="theme-btn">
+                <span id="theme-text">Dark Mode</span>
+            </button>
+        </div>
+    </aside>
+    
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        
+        <div id="toast-container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="toast {{ category }}">
+                            <i data-lucide="info"></i>
+                            <span>{{ message }}</span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+        
+    </main>
+    
+    <!-- BOTTOM NAVIGATION (Mobile Only) -->
+    <nav class="bottom-nav">
+        <div class="bottom-nav-items">
+            {% if session.get('role') == 'admin' %}
+                <a href="{{ url_for('explore_map') }}" class="bottom-nav-item">
+                    <i data-lucide="map"></i>
+                    <span>Map</span>
+                </a>
+                <a href="{{ url_for('admin_destinations') }}" class="bottom-nav-item">
+                    <i data-lucide="compass"></i>
+                    <span>Explore</span>
+                </a>
+                <a href="{{ url_for('admin_messages') }}" class="bottom-nav-item">
+                    <i data-lucide="flag"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="{{ url_for('logout') }}" class="bottom-nav-item">
+                    <i data-lucide="log-out"></i>
+                    <span>Logout</span>
+                </a>
+                
+            {% elif session.get('user_id') %}
+                <a href="{{ url_for('home') }}" class="bottom-nav-item">
+                    <i data-lucide="home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="{{ url_for('destinations') }}" class="bottom-nav-item">
+                    <i data-lucide="compass"></i>
+                    <span>Explore</span>
+                </a>
+                <a href="{{ url_for('explore_map') }}" class="bottom-nav-item">
+                    <i data-lucide="map"></i>
+                    <span>Map</span>
+                </a>
+                <a href="{{ url_for('planner') }}" class="bottom-nav-item">
+                    <i data-lucide="calendar"></i>
+                    <span>Plan</span>
+                </a>
+                <div class="bottom-nav-item more-btn" id="moreMenuBtn">
+                    <i data-lucide="more-horizontal"></i>
+                    <span>More</span>
+                </div>
+                
+                <div class="more-menu" id="moreMenu">
+                    <a href="{{ url_for('bookings') }}" class="more-menu-item">
+                        <i data-lucide="briefcase"></i>
+                        <span>My Trips</span>
+                    </a>
+                    <a href="{{ url_for('contact') }}" class="more-menu-item">
+                        <i data-lucide="message-circle"></i>
+                        <span>Report Issue</span>
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="more-menu-item">
+                        <i data-lucide="log-out"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+                
+            {% else %}
+                <a href="{{ url_for('home') }}" class="bottom-nav-item">
+                    <i data-lucide="home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="{{ url_for('destinations') }}" class="bottom-nav-item">
+                    <i data-lucide="compass"></i>
+                    <span>Explore</span>
+                </a>
+                <a href="{{ url_for('login') }}" class="bottom-nav-item">
+                    <i data-lucide="log-in"></i>
+                    <span>Login</span>
+                </a>
+                <a href="{{ url_for('contact') }}" class="bottom-nav-item">
+                    <i data-lucide="message-circle"></i>
+                    <span>Report</span>
+                </a>
+            {% endif %}
+        </div>
+    </nav>
+    
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
